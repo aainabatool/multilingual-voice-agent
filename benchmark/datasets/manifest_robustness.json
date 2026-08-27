@@ -1,0 +1,182 @@
+[
+  {
+    "id": "english_clean",
+    "audio": "data/audio/robustness/english_clean.wav",
+    "reference_text": "Hi, I want to track my order. The order number is 4589.",
+    "language": "en",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "clean"
+  },
+  {
+    "id": "english_noise_10db",
+    "audio": "data/audio/robustness/english_noise_10db.wav",
+    "reference_text": "Hi, I want to track my order. The order number is 4589.",
+    "language": "en",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "noise_10db"
+  },
+  {
+    "id": "english_noise_0db",
+    "audio": "data/audio/robustness/english_noise_0db.wav",
+    "reference_text": "Hi, I want to track my order. The order number is 4589.",
+    "language": "en",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "noise_0db"
+  },
+  {
+    "id": "english_speed_13x",
+    "audio": "data/audio/robustness/english_speed_13x.wav",
+    "reference_text": "Hi, I want to track my order. The order number is 4589.",
+    "language": "en",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "speed_13x"
+  },
+  {
+    "id": "english_speed_075x",
+    "audio": "data/audio/robustness/english_speed_075x.wav",
+    "reference_text": "Hi, I want to track my order. The order number is 4589.",
+    "language": "en",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "speed_075x"
+  },
+  {
+    "id": "urdu_clean",
+    "audio": "data/audio/robustness/urdu_clean.wav",
+    "reference_text": "میرا اوڈر کہا ہے؟ اوڈر نمبر چار پانچ آٹھ نو ہے۔",
+    "language": "ur",
+    "script": "urdu",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "clean"
+  },
+  {
+    "id": "urdu_noise_10db",
+    "audio": "data/audio/robustness/urdu_noise_10db.wav",
+    "reference_text": "میرا اوڈر کہا ہے؟ اوڈر نمبر چار پانچ آٹھ نو ہے۔",
+    "language": "ur",
+    "script": "urdu",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "noise_10db"
+  },
+  {
+    "id": "urdu_noise_0db",
+    "audio": "data/audio/robustness/urdu_noise_0db.wav",
+    "reference_text": "میرا اوڈر کہا ہے؟ اوڈر نمبر چار پانچ آٹھ نو ہے۔",
+    "language": "ur",
+    "script": "urdu",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "noise_0db"
+  },
+  {
+    "id": "urdu_speed_13x",
+    "audio": "data/audio/robustness/urdu_speed_13x.wav",
+    "reference_text": "میرا اوڈر کہا ہے؟ اوڈر نمبر چار پانچ آٹھ نو ہے۔",
+    "language": "ur",
+    "script": "urdu",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "speed_13x"
+  },
+  {
+    "id": "urdu_speed_075x",
+    "audio": "data/audio/robustness/urdu_speed_075x.wav",
+    "reference_text": "میرا اوڈر کہا ہے؟ اوڈر نمبر چار پانچ آٹھ نو ہے۔",
+    "language": "ur",
+    "script": "urdu",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "speed_075x"
+  },
+  {
+    "id": "roman_urdu_clean",
+    "audio": "data/audio/robustness/roman_urdu_clean.wav",
+    "reference_text": "Mujhe apna order track karna hai. Order number 4589 hai.",
+    "language": "ur-Latn",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": true,
+    "condition": "clean"
+  },
+  {
+    "id": "roman_urdu_noise_10db",
+    "audio": "data/audio/robustness/roman_urdu_noise_10db.wav",
+    "reference_text": "Mujhe apna order track karna hai. Order number 4589 hai.",
+    "language": "ur-Latn",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": true,
+    "condition": "noise_10db"
+  },
+  {
+    "id": "roman_urdu_noise_0db",
+    "audio": "data/audio/robustness/roman_urdu_noise_0db.wav",
+    "reference_text": "Mujhe apna order track karna hai. Order number 4589 hai.",
+    "language": "ur-Latn",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": true,
+    "condition": "noise_0db"
+  },
+  {
+    "id": "roman_urdu_speed_13x",
+    "audio": "data/audio/robustness/roman_urdu_speed_13x.wav",
+    "reference_text": "Mujhe apna order track karna hai. Order number 4589 hai.",
+    "language": "ur-Latn",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": true,
+    "condition": "speed_13x"
+  },
+  {
+    "id": "roman_urdu_speed_075x",
+    "audio": "data/audio/robustness/roman_urdu_speed_075x.wav",
+    "reference_text": "Mujhe apna order track karna hai. Order number 4589 hai.",
+    "language": "ur-Latn",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": true,
+    "condition": "speed_075x"
+  },
+  {
+    "id": "english_accent_en_IN",
+    "reference_text": "Hi, I want to track my order. The order number is 4589.",
+    "language": "en",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": false,
+    "condition": "accent_en_IN",
+    "audio": "data/audio/robustness/english_accent_en_IN.mp3"
+  },
+  {
+    "id": "roman_urdu_spelling_variant",
+    "reference_text": "Mujhe apna order track kia hai. Order number 4589 hy.",
+    "language": "ur-Latn",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": true,
+    "condition": "spelling_variant",
+    "audio": "data/audio/robustness/roman_urdu_spelling_variant.mp3"
+  },
+  {
+    "id": "mixed_script_001",
+    "reference_text": "Can you check میرا order?",
+    "language": "mixed",
+    "script": "mixed",
+    "category": "order_tracking",
+    "is_code_switched": true,
+    "condition": "mixed_script",
+    "audio": "data/audio/robustness/mixed_script_001.mp3"
+  }
+]

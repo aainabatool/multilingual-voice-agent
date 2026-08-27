@@ -6,7 +6,8 @@
     "language": "en",
     "script": "latin",
     "category": "order_tracking",
-    "is_code_switched": false
+    "is_code_switched": false,
+    "condition": "clean"
   },
   {
     "id": "urdu_001",
@@ -15,7 +16,8 @@
     "language": "ur",
     "script": "urdu",
     "category": "order_tracking",
-    "is_code_switched": false
+    "is_code_switched": false,
+    "condition": "clean"
   },
   {
     "id": "roman_urdu_001",
@@ -24,6 +26,7 @@
     "language": "ur-Latn",
     "script": "latin",
     "category": "order_tracking",
-    "is_code_switched": true
+    "is_code_switched": true,
+    "condition": "clean"
   }
 ]

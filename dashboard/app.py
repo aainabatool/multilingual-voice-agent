@@ -96,3 +96,27 @@ for key in selected:
             col1.text_area("Reference", case["reference_text"], height=80, key=f"{key}_{case['id']}_ref")
             col2.text_area("Hypothesis", case["hypothesis_text"], height=80, key=f"{key}_{case['id']}_hyp")
 
+if any("by_condition" in reports[key] for key in selected):
+    st.header("Robustness by condition")
+    cond_rows = []
+    for key in selected:
+        r = reports[key]
+        if "by_condition" not in r:
+            continue
+        for cond, vals in r["by_condition"].items():
+            cond_rows.append({
+                "Report": key,
+                "Model": r.get("model_size", "unknown"),
+                "Condition": cond,
+                "Avg WER": vals["avg_wer"],
+                "Avg CER": vals["avg_cer"],
+                "N cases": vals["num_cases"],
+            })
+    if cond_rows:
+        cond_df = pd.DataFrame(cond_rows)
+        fig_cond = px.line(
+            cond_df, x="Condition", y="Avg WER", color="Model", markers=True,
+            title="WER by robustness condition",
+        )
+        st.plotly_chart(fig_cond, width="stretch")
+        st.dataframe(cond_df, width="stretch")

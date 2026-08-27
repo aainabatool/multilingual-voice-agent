@@ -20,7 +20,7 @@ def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json", model
     metric_rows = []
 
     for case in manifest:
-        print(f"\nRunning case: {case['id']}")
+        print(f"\nRunning case: {case['id']} (condition: {case.get('condition', 'clean')})")
         transcription = route_transcription(stt, case["audio"])
         lang_state = detect_language_state(
             transcription.text,
@@ -34,6 +34,7 @@ def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json", model
         row = {
             "id": case["id"],
             "category": case["category"],
+            "condition": case.get("condition", "clean"),
             "reference_text": case["reference_text"],
             "hypothesis_text": transcription.text,
             "wer": wer,
@@ -50,19 +51,33 @@ def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json", model
         print(f"  WER: {wer:.3f}, CER: {cer:.3f}")
         print(f"  Reference language: {case['language']}, Detected: {lang_state.primary_language}")
 
+    # Break down average WER/CER by condition, per spec's robustness research question
+    conditions = sorted(set(r["condition"] for r in metric_rows))
+    by_condition = {}
+    for cond in conditions:
+        cond_rows = [r for r in metric_rows if r["condition"] == cond]
+        by_condition[cond] = {
+            "avg_wer": round(sum(r["wer"] for r in cond_rows) / len(cond_rows), 4),
+            "avg_cer": round(sum(r["cer"] for r in cond_rows) / len(cond_rows), 4),
+            "num_cases": len(cond_rows),
+        }
+
     summary = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "model_size": model_size,
+        "manifest": manifest_path,
         "num_cases": len(manifest),
         "avg_wer": round(sum(r["wer"] for r in metric_rows) / len(metric_rows), 4),
         "avg_cer": round(sum(r["cer"] for r in metric_rows) / len(metric_rows), 4),
         "avg_inference_time_s": round(sum(r["inference_time_s"] for r in metric_rows) / len(metric_rows), 4),
         "language_accuracy": language_accuracy(metric_rows),
         "code_switch_f1": code_switch_f1(metric_rows),
+        "by_condition": by_condition,
         "per_case": per_case_results,
     }
 
-    report_path = Path("benchmark/reports") / f"benchmark_{model_size}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    manifest_tag = Path(manifest_path).stem
+    report_path = Path("benchmark/reports") / f"benchmark_{model_size}_{manifest_tag}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(summary, f, ensure_ascii=False, indent=2)
@@ -71,6 +86,9 @@ def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json", model
     print(f"\nSummary: avg WER={summary['avg_wer']}, avg CER={summary['avg_cer']}, "
           f"language accuracy={summary['language_accuracy']}, "
           f"code-switch F1={summary['code_switch_f1']['f1']}")
+    print("\nBy condition:")
+    for cond, vals in by_condition.items():
+        print(f"  {cond}: WER={vals['avg_wer']}, CER={vals['avg_cer']} (n={vals['num_cases']})")
 
     return summary
 
@@ -78,4 +96,5 @@ def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json", model
 if __name__ == "__main__":
     import sys
     model = sys.argv[1] if len(sys.argv) > 1 else "small"
-    run_benchmark(model_size=model)
+    manifest = sys.argv[2] if len(sys.argv) > 2 else "benchmark/datasets/manifest.json"
+    run_benchmark(manifest_path=manifest, model_size=model)
