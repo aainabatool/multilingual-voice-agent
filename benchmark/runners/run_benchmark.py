@@ -9,12 +9,12 @@ from benchmark.metrics.language_metrics import code_switch_f1, language_accuracy
 from benchmark.metrics.wer_cer import character_error_rate, word_error_rate
 
 
-def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json") -> dict:
+def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json", model_size: str = "small") -> dict:
     with open(manifest_path, encoding="utf-8-sig") as f:
         manifest = json.load(f)
 
-    print("Loading faster-whisper (small)...")
-    stt = WhisperRunner(model_size="small")
+    print(f"Loading faster-whisper ({model_size})...")
+    stt = WhisperRunner(model_size=model_size)
 
     per_case_results = []
     metric_rows = []
@@ -42,6 +42,7 @@ def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json") -> di
             "detected_language": lang_state.primary_language,
             "code_switch_score": lang_state.code_switch_score,
             "is_code_switched": case["is_code_switched"],
+            "inference_time_s": transcription.inference_time_s,
         }
         per_case_results.append(row)
         metric_rows.append(row)
@@ -51,15 +52,17 @@ def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json") -> di
 
     summary = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
+        "model_size": model_size,
         "num_cases": len(manifest),
         "avg_wer": round(sum(r["wer"] for r in metric_rows) / len(metric_rows), 4),
         "avg_cer": round(sum(r["cer"] for r in metric_rows) / len(metric_rows), 4),
+        "avg_inference_time_s": round(sum(r["inference_time_s"] for r in metric_rows) / len(metric_rows), 4),
         "language_accuracy": language_accuracy(metric_rows),
         "code_switch_f1": code_switch_f1(metric_rows),
         "per_case": per_case_results,
     }
 
-    report_path = Path("benchmark/reports") / f"benchmark_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+    report_path = Path("benchmark/reports") / f"benchmark_{model_size}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(summary, f, ensure_ascii=False, indent=2)
@@ -73,4 +76,6 @@ def run_benchmark(manifest_path: str = "benchmark/datasets/manifest.json") -> di
 
 
 if __name__ == "__main__":
-    run_benchmark()
+    import sys
+    model = sys.argv[1] if len(sys.argv) > 1 else "small"
+    run_benchmark(model_size=model)
