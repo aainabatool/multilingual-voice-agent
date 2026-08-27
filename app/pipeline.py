@@ -51,3 +51,28 @@ def run_pipeline(
         reply_text=reply_text,
         tts_result=tts_result,
     )
+
+
+def run_pipeline_from_text(
+    text: str,
+    session: SessionState,
+    llm: LLMAdapter,
+    tts: PiperAdapter,
+    reply_audio_path: str = "data/audio/pipeline_reply.wav",
+) -> PipelineResult:
+    """Same pipeline but skipping STT -- for typed input (dashboard 'Try it Live' text mode)."""
+    lang_state = detect_language_state(text)
+
+    reply_text = run_turn(session, text, lang_state, llm)
+
+    reply_lang_state = detect_language_state(reply_text)
+    tts_result = tts.synthesize(reply_text, reply_lang_state.primary_language, reply_audio_path)
+
+    return PipelineResult(
+        transcript=text,
+        stt_language=None,
+        stt_confidence=None,
+        language_state=lang_state,
+        reply_text=reply_text,
+        tts_result=tts_result,
+    )

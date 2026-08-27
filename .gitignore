@@ -17,3 +17,5 @@ data/audio/mic_turn_*.wav
 data/audio/pipeline_reply.wav
 
 benchmark/reports/*.json
+
+data/audio/live_upload_*
