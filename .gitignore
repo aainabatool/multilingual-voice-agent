@@ -12,3 +12,6 @@ wheels/
 .env
 
 models/
+
+data/audio/mic_turn_*.wav
+data/audio/pipeline_reply.wav
