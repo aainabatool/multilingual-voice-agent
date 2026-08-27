@@ -54,7 +54,7 @@ uv run python -m benchmark.runners.run_benchmark small benchmark/datasets/manife
 uv run python -m benchmark.runners.run_benchmark small benchmark/datasets/manifest_robustness.json
 
 # View results
-uv run streamlit run dashboard/app.py
+uv run streamlit run dashboard/dashboard_app.py
 ```
 
 Reports are written as JSON to `benchmark/reports/` (gitignored) and compared side by side in the dashboard.
@@ -78,3 +78,4 @@ STT: faster-whisper &middot; LLM: Ollama (llama3.2) &middot; TTS: Piper &middot;
 ## Status
 
 All 9 phases of the original specification are complete: repo setup, STT baseline, language/script detection, agent core, TTS, end-to-end voice loop, benchmark harness, dashboard, and robustness testing.
+
