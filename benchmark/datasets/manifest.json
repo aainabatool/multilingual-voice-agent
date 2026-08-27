@@ -1,0 +1,29 @@
+﻿[
+  {
+    "id": "english_001",
+    "audio": "data/audio/sample_en.mp3",
+    "reference_text": "Hi, I want to track my order. The order number is 4589.",
+    "language": "en",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": false
+  },
+  {
+    "id": "urdu_001",
+    "audio": "data/audio/sample_ur.mp3",
+    "reference_text": "میرا اوڈر کہا ہے؟ اوڈر نمبر چار پانچ آٹھ نو ہے۔",
+    "language": "ur",
+    "script": "urdu",
+    "category": "order_tracking",
+    "is_code_switched": false
+  },
+  {
+    "id": "roman_urdu_001",
+    "audio": "data/audio/sample_ur_latn.mp3",
+    "reference_text": "Mujhe apna order track karna hai. Order number 4589 hai.",
+    "language": "ur-Latn",
+    "script": "latin",
+    "category": "order_tracking",
+    "is_code_switched": true
+  }
+]
